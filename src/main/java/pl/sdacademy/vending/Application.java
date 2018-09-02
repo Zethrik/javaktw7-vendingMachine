@@ -13,4 +13,8 @@ public class Application {
         VendingMachine vendingMachine = new VendingMachine(configuration);
         customerOperationController = new CustomerOperationController(vendingMachine);
     }
+
+    public void start() {
+        customerOperationController.printMachine();
+    }
 }
