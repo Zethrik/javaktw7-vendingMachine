@@ -7,8 +7,8 @@ public class VendingMachine {
 
     private final Configuration configuration;
 
-    public VendingMachine() {
-        configuration = PropertiesFileConfiguration.getInstance();
+    public VendingMachine(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     public Long rowsSize() {
