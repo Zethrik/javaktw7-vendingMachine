@@ -10,7 +10,7 @@ public class ConfigurationTest {
 
     @Before
     public void executedBeforeEach() {
-        configuration = new Configuration();
+        configuration = Configuration.getInstance();
     }
 
     @Test

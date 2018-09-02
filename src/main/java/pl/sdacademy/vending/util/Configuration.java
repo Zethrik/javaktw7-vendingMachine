@@ -9,7 +9,7 @@ public class Configuration {
     private static final String PROPERTIES_FILE_LOCATION = "application.properties";
     private final Properties properties;
 
-    public Configuration() {
+    private Configuration() {
         properties = new Properties();
 
         try (InputStream propertiesFile = ClassLoader
@@ -20,16 +20,25 @@ public class Configuration {
         }
     }
 
-    public String getProperty (String propertyName, String defeaultValue) {
+    public static Configuration getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
+    public String getProperty(String propertyName, String defeaultValue) {
         return properties.getProperty(propertyName, defeaultValue);
     }
 
-    public Long getProperty (String propertyName, Long defeaultValue) {
+    public Long getProperty(String propertyName, Long defeaultValue) {
         String requestedValue = properties.getProperty(propertyName);
         if (requestedValue != null) {
-            return Long.parseLong(requestedValue);
+            long value = Long.parseLong(requestedValue);
+            return value;
         } else {
             return defeaultValue;
         }
+    }
+
+    private static class InstanceHolder {
+        private static final Configuration INSTANCE = new Configuration();
     }
 }
