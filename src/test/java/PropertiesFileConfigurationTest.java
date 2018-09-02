@@ -1,16 +1,16 @@
 import org.junit.Before;
 import org.junit.Test;
-import pl.sdacademy.vending.util.Configuration;
+import pl.sdacademy.vending.util.PropertiesFileConfiguration;
 
 import static org.junit.Assert.assertEquals;
 
-public class ConfigurationTest {
+public class PropertiesFileConfigurationTest {
 
-    private Configuration configuration;
+    private PropertiesFileConfiguration configuration;
 
     @Before
     public void executedBeforeEach() {
-        configuration = Configuration.getInstance();
+        configuration = PropertiesFileConfiguration.getInstance();
     }
 
     @Test
