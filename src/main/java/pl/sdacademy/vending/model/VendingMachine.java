@@ -6,8 +6,18 @@ public class VendingMachine {
 
     private final Configuration configuration;
 
-    public VendingMachine(Configuration configuration) {
+    public VendingMachine(Configuration configuration) throws IllegalArgumentException {
         this.configuration = configuration;
+
+        Long rows = rowsSize();
+        if (rows < 1 || rows > 26) {
+            throw new IllegalArgumentException();
+        }
+
+        Long cols = colsSize();
+        if (cols < 1 || cols > 9) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Long rowsSize() {
