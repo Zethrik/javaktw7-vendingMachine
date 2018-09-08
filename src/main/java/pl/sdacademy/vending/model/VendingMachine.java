@@ -2,6 +2,8 @@ package pl.sdacademy.vending.model;
 
 import pl.sdacademy.vending.util.Configuration;
 
+import java.util.Optional;
+
 public class VendingMachine {
 
     private final Long maxRowsSize;
@@ -42,7 +44,9 @@ public class VendingMachine {
         return maxColsSize;
     }
 
-    public Tray trayDetailsAtPosition(int rowNumber, int colNumber) {
-        return trays[rowNumber][colNumber];
+    public Optional<Tray> trayDetailsAtPosition(int rowNumber, int colNumber) {
+        Tray obtainedTray = trays[rowNumber][colNumber];
+        Optional<Tray> tray = Optional.ofNullable(obtainedTray);
+        return tray;
     }
 }

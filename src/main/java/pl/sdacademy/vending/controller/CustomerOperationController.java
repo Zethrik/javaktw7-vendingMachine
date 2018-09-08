@@ -3,6 +3,8 @@ package pl.sdacademy.vending.controller;
 import pl.sdacademy.vending.model.Tray;
 import pl.sdacademy.vending.model.VendingMachine;
 
+import java.util.Optional;
+
 public class CustomerOperationController {
     private final VendingMachine machine;
 
@@ -22,6 +24,11 @@ public class CustomerOperationController {
             }
             System.out.println();
 
+//            for (int col = 0; col < machine.colsSize(); col++) {
+//                printPriceForCell(row, col);
+//            }
+//            System.out.println();
+
             for (int col = 0; col < machine.colsSize(); col++) {
                 printLowerBoundaryForCell(row, col);
             }
@@ -34,10 +41,20 @@ public class CustomerOperationController {
     }
 
     private void printSymbolForCell(int row, int col) {
-        Tray tray = machine.trayDetailsAtPosition(row, col);
-        String symbol = tray.getSymbol();
+        Optional<Tray> tray = machine.trayDetailsAtPosition(row, col);
+        String symbol = tray
+                .map(Tray::getSymbol)
+                .orElse("--");
         System.out.print("|   " + symbol + "   |");
     }
+//
+//    private void printPriceForCell(int row, int col) {
+//        Optional<Tray> tray = machine.trayDetailsAtPosition(row, col);
+//        Long price = tray
+//                .map(Tray::getPrice)
+//                .orElse(0L);
+//        System.out.print("|   " + price + "   |");
+//    }
 
     private void printLowerBoundaryForCell(int row, int col) {
         System.out.print("+--------+");
