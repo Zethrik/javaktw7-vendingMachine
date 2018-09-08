@@ -85,7 +85,7 @@ public class VendingMachineTest {
         // definiujemy zwracane przez konfigurację wartości
         // maksymalną poprawną wartością dla ilości wierszy jest 9. Ta konfiguracja zwróci zbyt dużą ilość kolumn.
         when(mockedConfig.getProperty(eq(PARAM_NAME_COLS), anyLong()))
-                .thenReturn(15L);
+                .thenReturn(10L);
         when(mockedConfig.getProperty(eq(PARAM_NAME_ROWS), anyLong()))
                 .thenReturn(14L);
 

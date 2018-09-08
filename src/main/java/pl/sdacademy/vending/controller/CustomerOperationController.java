@@ -1,5 +1,6 @@
 package pl.sdacademy.vending.controller;
 
+import pl.sdacademy.vending.model.Tray;
 import pl.sdacademy.vending.model.VendingMachine;
 
 public class CustomerOperationController {
@@ -33,9 +34,9 @@ public class CustomerOperationController {
     }
 
     private void printSymbolForCell(int row, int col) {
-        char rowSymbol = (char) ('A' + row);
-        int colSymbol = col + 1;
-        System.out.print("|   " + rowSymbol + colSymbol + "   |");
+        Tray tray = machine.trayDetailsAtPosition(row, col);
+        String symbol = tray.getSymbol();
+        System.out.print("|   " + symbol + "   |");
     }
 
     private void printLowerBoundaryForCell(int row, int col) {
