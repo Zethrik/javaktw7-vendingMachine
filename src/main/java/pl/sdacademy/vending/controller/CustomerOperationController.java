@@ -1,5 +1,6 @@
 package pl.sdacademy.vending.controller;
 
+import pl.sdacademy.vending.model.Product;
 import pl.sdacademy.vending.model.Tray;
 import pl.sdacademy.vending.model.VendingMachine;
 import pl.sdacademy.vending.util.StringUtils;
@@ -83,5 +84,9 @@ public class CustomerOperationController {
     private void printLowerBoundaryForCell() {
         String score = StringUtils.multiplyText(MINUS, 12);
         System.out.print(PLUS + score + PLUS);
+    }
+
+    public Optional<Product> buyProduct(String symbol) {
+        return machine.buyProductWithSymbol(symbol);
     }
 }

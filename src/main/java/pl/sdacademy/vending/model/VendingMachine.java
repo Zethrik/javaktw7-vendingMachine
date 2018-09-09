@@ -98,8 +98,8 @@ public class VendingMachine {
     public Optional<Tray> getTrayForSymbol(String symbol) {
         char rowSymbol = symbol.toUpperCase().charAt(0);
         char colSymbol = symbol.charAt(1);
-        int colNumber = rowSymbol - 'A';
-        int rowNumber = colSymbol - '1';
+        int rowNumber = rowSymbol - 'A';
+        int colNumber = colSymbol - '1';
         return trayDetailsAtPosition(rowNumber, colNumber);
     }
 }

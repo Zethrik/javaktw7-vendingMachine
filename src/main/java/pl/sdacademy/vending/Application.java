@@ -7,8 +7,10 @@ import pl.sdacademy.vending.util.Configuration;
 import pl.sdacademy.vending.util.PropertiesFileConfiguration;
 
 import java.util.Optional;
+import java.util.Scanner;
 
 public class Application {
+    Scanner scanner = new Scanner(System.in);
     private final CustomerOperationController customerOperationController;
     private final VendingMachine vendingMachine;
 
@@ -19,6 +21,51 @@ public class Application {
     }
 
     public void start() {
-        customerOperationController.printMachine();
+        int userSelection = -1;
+        do {
+            customerOperationController.printMachine();
+            printMenu();
+            userSelection = getUserInput();
+            switch (userSelection) {
+                case 1:
+                    System.out.print("Select product number: ");
+                    String selectedSymbol = scanner.nextLine();
+                    Optional<Product> boughtProduct = vendingMachine.buyProductWithSymbol(selectedSymbol);
+                    if (boughtProduct.isPresent()) {
+                        System.out.println("\nYou bought: " + boughtProduct.get().getName());
+                    } else {
+                        System.out.println("\nSold out");
+                    }
+                    pause();
+                    break;
+                case 9:
+                    System.out.println("\nBye");
+                    pause();
+                    break;
+                default:
+                    System.out.println("\nInvalid selection");
+                    pause();
+            }
+        } while (userSelection != 9);
+    }
+
+    private void printMenu() {
+        System.out.println("1. Buy product");
+        System.out.println("9. Exit");
+    }
+
+    private int getUserInput() {
+        System.out.print("Your selection: ");
+        String userInput = scanner.nextLine();
+        try {
+            return Integer.parseInt(userInput);
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+    }
+
+    private void pause() {
+        System.out.println("Press enter to continue");
+        String blank = scanner.nextLine();
     }
 }
