@@ -84,4 +84,22 @@ public class VendingMachine {
             return Optional.empty();
         }
     }
+
+    public Optional<Product> buyProductWithSymbol(String symbol) {
+        Optional<Tray> tray = getTrayForSymbol(symbol);
+        if (tray.isPresent()) {
+            return tray.get().getFirstProduct();
+        } else {
+            return Optional.empty();
+        }
+    }
+
+
+    public Optional<Tray> getTrayForSymbol(String symbol) {
+        char rowSymbol = symbol.toUpperCase().charAt(0);
+        char colSymbol = symbol.charAt(1);
+        int colNumber = rowSymbol - 'A';
+        int rowNumber = colSymbol - '1';
+        return trayDetailsAtPosition(rowNumber, colNumber);
+    }
 }
