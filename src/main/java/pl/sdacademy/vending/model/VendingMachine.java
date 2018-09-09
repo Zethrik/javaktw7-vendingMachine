@@ -75,4 +75,13 @@ public class VendingMachine {
         Optional<Tray> tray = Optional.ofNullable(obtainedTray);
         return tray;
     }
+
+    public Optional<String> productNameAtPosition(int rowNumber, int colNumber) {
+        Tray tray = trays[rowNumber][colNumber];
+        if (tray != null) {
+            return tray.firstProductName();
+        } else {
+            return Optional.empty();
+        }
+    }
 }

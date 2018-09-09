@@ -23,7 +23,7 @@ public class StringUtils {
     }
 
     public static String adjustPrice(Long price) {
-        String priceToText = "";
+        String priceToText;
         if (price > 99) {
             priceToText = price.toString();
         } else if (price < 10) {
@@ -37,12 +37,16 @@ public class StringUtils {
         String splittedText = "";
         int counter = 0;
 
-        for (int i = priceToSplit.length() - 1; i >= 0; i--) {
-            if (counter != 3) {
-                splittedText = String.valueOf(priceToSplit.charAt(i)) + splittedText;
+        for (int charIndex = priceToSplit.length() - 1; charIndex >= 0; charIndex--) {
+            if (counter < 3) {
+                splittedText = String.valueOf(priceToSplit.charAt(charIndex)) + splittedText;
                 counter++;
             } else {
-                splittedText = String.valueOf(priceToSplit.charAt(i)) + " " + splittedText;
+                splittedText = new StringBuilder()
+                        .append(String.valueOf(priceToSplit.charAt(charIndex)))
+                        .append(" ")
+                        .append(splittedText)
+                        .toString();
                 counter = 1;
             }
         }

@@ -89,7 +89,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void shouldSplitThousandsAndHundreds1() {
+    public void shouldNotAddSpaceToTheBeginningOfPrice() {
         // given
         Long priceToAdjust = 12345L;
 
@@ -101,7 +101,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void shouldSplitThousandsAndHundreds0() {
+    public void shouldDisplayPriceEqualsToZero() {
         // given
         Long priceToAdjust = 0L;
 
