@@ -13,6 +13,7 @@ public class CustomerOperationController {
     private static final String BOUNDARY_LINE = "|";
     private static final String MINUS = "-";
     private static final String DOUBLE_MINUS = "--";
+    private static final String EMPTY = "EMPTY";
 
     public CustomerOperationController(VendingMachine machine) {
         this.machine = machine;
@@ -66,7 +67,7 @@ public class CustomerOperationController {
     private void printProductNameForCell(int row, int col) {
         Optional<String> productName = machine.productNameAtPosition(row, col);
         String obtainedProductName = productName
-                .orElse(DOUBLE_MINUS);
+                .orElse(EMPTY);
         String centeredName = StringUtils.adjustText(obtainedProductName, 12);
         System.out.print(BOUNDARY_LINE + centeredName + BOUNDARY_LINE);
     }

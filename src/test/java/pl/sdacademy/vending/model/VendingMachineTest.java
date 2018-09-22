@@ -2,6 +2,9 @@ package pl.sdacademy.vending.model;
 
 import org.junit.Test;
 import pl.sdacademy.vending.util.Configuration;
+import pl.sdacademy.vending.util.PropertiesFileConfiguration;
+
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyLong;
@@ -109,5 +112,24 @@ public class VendingMachineTest {
         // when
         // testujemy tylko to, czy uda się utworzyć automat
         new VendingMachine(mockedConfig);
+    }
+
+    @Test
+    public void shouldBeAbleToAddTrayToEmptyMachine() {
+        // given
+        VendingMachine vendingMachine =
+                new VendingMachine(PropertiesFileConfiguration.getInstance());
+        Tray tray = Tray.builder("B2").build();
+
+        // when
+        boolean successfullyAdded = vendingMachine.placeTray(tray);
+
+        // then
+        assertTrue(successfullyAdded);
+        Optional<Tray> obtainedTray =
+                vendingMachine.trayDetailsAtPosition(1, 1);
+        assertTrue(obtainedTray.isPresent());
+        Tray trayFromMachine = obtainedTray.get();
+        assertEquals("B2", trayFromMachine.getSymbol());
     }
 }

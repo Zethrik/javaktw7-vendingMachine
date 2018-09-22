@@ -17,6 +17,7 @@ public class Application {
     public Application() {
         Configuration configuration = PropertiesFileConfiguration.getInstance();
         vendingMachine = new VendingMachine(configuration);
+        vendingMachine.init();
         customerOperationController = new CustomerOperationController(vendingMachine);
     }
 
@@ -66,6 +67,6 @@ public class Application {
 
     private void pause() {
         System.out.println("Press enter to continue");
-        String blank = scanner.nextLine();
+        scanner.nextLine();
     }
 }

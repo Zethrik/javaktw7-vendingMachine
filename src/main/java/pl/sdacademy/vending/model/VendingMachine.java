@@ -22,7 +22,9 @@ public class VendingMachine {
             throw new IllegalArgumentException("VendingMachine can not be created with " + maxColsSize + " cols");
         }
         trays = new Tray[maxRowsSize.intValue()][maxColsSize.intValue()];
+    }
 
+    public void init() {
         for (int rowNumber = 0; rowNumber < maxRowsSize; rowNumber++) {
             for (int colNumber = 0; colNumber < maxColsSize; colNumber++) {
                 trays[rowNumber][colNumber] = createTrayForPosition(rowNumber, colNumber);
@@ -96,10 +98,26 @@ public class VendingMachine {
 
 
     public Optional<Tray> getTrayForSymbol(String symbol) {
-        char rowSymbol = symbol.toUpperCase().charAt(0);
-        char colSymbol = symbol.charAt(1);
-        int rowNumber = rowSymbol - 'A';
-        int colNumber = colSymbol - '1';
+        int rowNumber = getRowNomberForSymbol(symbol);
+        int colNumber = getColNumberForSymbol(symbol);
         return trayDetailsAtPosition(rowNumber, colNumber);
+    }
+
+    public boolean placeTray(Tray tray) {
+        String symbol = tray.getSymbol();
+        int rowNumber = getRowNomberForSymbol(symbol);
+        int colNumber = getColNumberForSymbol(symbol);
+        trays[rowNumber][colNumber] = tray;
+        return true;
+    }
+
+    private int getColNumberForSymbol(String symbol) {
+        char colSymbol = symbol.charAt(1);
+        return colSymbol - '1';
+    }
+
+    private int getRowNomberForSymbol(String symbol) {
+        char rowSymbol = symbol.toUpperCase().charAt(0);
+        return rowSymbol - 'A';
     }
 }
