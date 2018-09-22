@@ -99,7 +99,8 @@ public class VendingMachine {
 
     public Optional<Tray> getTrayForSymbol(String symbol) {
         int rowNumber = getRowNomberForSymbol(symbol);
-        int colNumber = getColNumberForSymbol(symbol);
+        char colSymbol = symbol.charAt(1);
+        int colNumber = colSymbol - '1';
         return trayDetailsAtPosition(rowNumber, colNumber);
     }
 
@@ -107,8 +108,22 @@ public class VendingMachine {
         String symbol = tray.getSymbol();
         int rowNumber = getRowNomberForSymbol(symbol);
         int colNumber = getColNumberForSymbol(symbol);
-        trays[rowNumber][colNumber] = tray;
-        return true;
+
+
+        if (rowNumber < 0 || rowNumber >= maxRowsSize) {
+            return false;
+        }
+        if (colNumber < 0 || colNumber >= maxColsSize) {
+            return false;
+        }
+
+        if (trays[rowNumber][colNumber] == null) {
+            trays[rowNumber][colNumber] = tray;
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private int getColNumberForSymbol(String symbol) {

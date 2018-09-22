@@ -132,4 +132,33 @@ public class VendingMachineTest {
         Tray trayFromMachine = obtainedTray.get();
         assertEquals("B2", trayFromMachine.getSymbol());
     }
+
+    @Test
+    public void shouldNotAllowToPlaceTrayTwiceOnTheSamePosition() {
+        // given
+        VendingMachine vendingMachine =
+                new VendingMachine(PropertiesFileConfiguration.getInstance());
+        Tray firstTray = Tray.builder("C1").build();
+        Tray secondTray = Tray.builder("C1").build();
+
+        // when
+        vendingMachine.placeTray(firstTray);
+        boolean resultOfSecondPlacement = vendingMachine.placeTray(secondTray);
+
+        // then
+        assertFalse(resultOfSecondPlacement);
+    }
+
+    @Test
+    public void shouldNotBeAbleToAddTrayOnExistingPosition() {
+        // given
+        VendingMachine vendingMachine = new VendingMachine(PropertiesFileConfiguration.getInstance());
+        Tray tray = Tray.builder("A0").build();
+
+        // when
+        boolean placementResult = vendingMachine.placeTray(tray);
+
+        // then
+        assertFalse(placementResult);
+    }
 }
