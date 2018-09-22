@@ -4,9 +4,7 @@ import pl.sdacademy.vending.model.VendingMachine;
 import pl.sdacademy.vending.service.repositories.VendingMachineRepository;
 import pl.sdacademy.vending.util.Configuration;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.Optional;
 
 public class HardDriveVendingMachineRepository implements VendingMachineRepository {
@@ -21,7 +19,13 @@ public class HardDriveVendingMachineRepository implements VendingMachineReposito
 
     @Override
     public VendingMachine save(VendingMachine vendingMachine) {
-        return null;
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                new FileOutputStream(fileLocalizationName))) {
+           objectOutputStream.writeObject(vendingMachine);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return vendingMachine;
     }
 
     @Override
