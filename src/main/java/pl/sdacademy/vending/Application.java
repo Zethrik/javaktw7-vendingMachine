@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class Application {
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private final CustomerOperationController customerOperationController;
     private final VendingMachine vendingMachine;
 
