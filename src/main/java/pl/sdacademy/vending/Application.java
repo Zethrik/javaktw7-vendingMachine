@@ -1,8 +1,12 @@
 package pl.sdacademy.vending;
 
 import pl.sdacademy.vending.controller.CustomerOperationController;
+import pl.sdacademy.vending.controller.services.EmployeeService;
 import pl.sdacademy.vending.model.Product;
 import pl.sdacademy.vending.model.VendingMachine;
+import pl.sdacademy.vending.repository.HardDriveVendingMachineRepository;
+import pl.sdacademy.vending.service.DefaultEmployeeService;
+import pl.sdacademy.vending.service.repositories.VendingMachineRepository;
 import pl.sdacademy.vending.util.Configuration;
 import pl.sdacademy.vending.util.PropertiesFileConfiguration;
 
@@ -18,6 +22,13 @@ public class Application {
         Configuration configuration = PropertiesFileConfiguration.getInstance();
         vendingMachine = new VendingMachine(configuration);
         vendingMachine.init();
+
+        VendingMachineRepository vendingMachineRepository =
+                new HardDriveVendingMachineRepository(configuration);
+
+        EmployeeService employeeService =
+                new DefaultEmployeeService(vendingMachineRepository, configuration);
+
         customerOperationController = new CustomerOperationController(vendingMachine);
     }
 
