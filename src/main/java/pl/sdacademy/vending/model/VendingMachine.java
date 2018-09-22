@@ -2,15 +2,17 @@ package pl.sdacademy.vending.model;
 
 import pl.sdacademy.vending.util.Configuration;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.Random;
 
-public class VendingMachine {
+public class VendingMachine implements Serializable {
+
+    public final static long serialVersionUID = 1L;
 
     private final Long maxRowsSize;
     private final Long maxColsSize;
     private final Tray[][] trays;
-
 
     public VendingMachine(Configuration configuration) {
         maxRowsSize = configuration.getProperty("machine.size.rows", 6L);
