@@ -1,6 +1,5 @@
 package pl.sdacademy.vending.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Test;
 import pl.sdacademy.vending.util.Configuration;
 import pl.sdacademy.vending.util.PropertiesFileConfiguration;

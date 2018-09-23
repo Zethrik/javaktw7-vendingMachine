@@ -85,6 +85,9 @@ public class Application {
                     pause();
                     break;
                 case 3:
+                    employeeController.addProduct();
+                    pause();
+                    break;
                 case 4:
                 case 5:
                     pause();
