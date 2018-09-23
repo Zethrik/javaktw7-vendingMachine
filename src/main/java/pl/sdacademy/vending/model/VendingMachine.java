@@ -111,7 +111,6 @@ public class VendingMachine implements Serializable {
         int rowNumber = getRowNomberForSymbol(symbol);
         int colNumber = getColNumberForSymbol(symbol);
 
-
         if (rowNumber < 0 || rowNumber >= maxRowsSize) {
             return false;
         }
@@ -125,7 +124,22 @@ public class VendingMachine implements Serializable {
         } else {
             return false;
         }
+    }
 
+    public Optional<Tray> removeTrayWithSymbol(String symbol) {
+        int rowNumber = getRowNomberForSymbol(symbol);
+        int colNumber = getColNumberForSymbol(symbol);
+        Optional<Tray> potentialTray = getTrayForSymbol(symbol);
+        trays[rowNumber][colNumber] = null;
+        return potentialTray;
+
+//        Tray obtainedTray = trays[rowNumber][colNumber];
+//        if (obtainedTray != null) {
+//            trays[rowNumber][colNumber] = null;
+//            return Optional.of(obtainedTray);
+//        } else {
+//            return Optional.empty();
+//        }
     }
 
     private int getColNumberForSymbol(String symbol) {

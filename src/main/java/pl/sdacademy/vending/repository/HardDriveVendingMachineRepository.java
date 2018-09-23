@@ -37,7 +37,6 @@ public class HardDriveVendingMachineRepository implements VendingMachineReposito
                     (VendingMachine) objectInputStream.readObject();
             return Optional.ofNullable(readVendingMachine);
         } catch(ClassNotFoundException | IOException e) {
-            e.printStackTrace();
         }
         return Optional.empty();
     }

@@ -1,9 +1,9 @@
 package pl.sdacademy.vending;
 
 import pl.sdacademy.vending.controller.CustomerOperationController;
+import pl.sdacademy.vending.controller.EmployeeController;
 import pl.sdacademy.vending.controller.services.EmployeeService;
 import pl.sdacademy.vending.model.Product;
-import pl.sdacademy.vending.model.VendingMachine;
 import pl.sdacademy.vending.repository.HardDriveVendingMachineRepository;
 import pl.sdacademy.vending.service.DefaultEmployeeService;
 import pl.sdacademy.vending.service.repositories.VendingMachineRepository;
@@ -14,14 +14,12 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class Application {
+    private final EmployeeController employeeController;
     private Scanner scanner = new Scanner(System.in);
     private final CustomerOperationController customerOperationController;
-    private final VendingMachine vendingMachine;
 
     public Application() {
         Configuration configuration = PropertiesFileConfiguration.getInstance();
-        vendingMachine = new VendingMachine(configuration);
-        vendingMachine.init();
 
         VendingMachineRepository vendingMachineRepository =
                 new HardDriveVendingMachineRepository(configuration);
@@ -29,7 +27,9 @@ public class Application {
         EmployeeService employeeService =
                 new DefaultEmployeeService(vendingMachineRepository, configuration);
 
-        customerOperationController = new CustomerOperationController(vendingMachine);
+        employeeController = new EmployeeController(employeeService);
+
+        customerOperationController = new CustomerOperationController(vendingMachineRepository);
     }
 
     public void start() {
@@ -42,7 +42,7 @@ public class Application {
                 case 1:
                     System.out.print("Select product number: ");
                     String selectedSymbol = scanner.nextLine();
-                    Optional<Product> boughtProduct = vendingMachine.buyProductWithSymbol(selectedSymbol);
+                    Optional<Product> boughtProduct = customerOperationController.buyProduct(selectedSymbol);
                     if (boughtProduct.isPresent()) {
                         System.out.println("\nYou bought: " + boughtProduct.get().getName());
                     } else {
@@ -54,6 +54,9 @@ public class Application {
                     System.out.println("\nBye");
                     pause();
                     break;
+                case 0:
+                    startServiceMenu();
+                    break;
                 default:
                     System.out.println("\nInvalid selection");
                     pause();
@@ -64,6 +67,44 @@ public class Application {
     private void printMenu() {
         System.out.println("1. Buy product");
         System.out.println("9. Exit");
+        System.out.println("0. Service menu");
+    }
+
+    private void startServiceMenu() {
+        int userSelection = -1;
+        do {
+            customerOperationController.printMachine();
+            printServiceMenu();
+            userSelection = getUserInput();
+            switch (userSelection) {
+                case 1:
+                    employeeController.addTray();
+                    pause();
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    pause();
+                    break;
+                case 9:
+                    System.out.println("\nReturning to main menu");
+                    pause();
+                    break;
+                default:
+                    System.out.println("\nInvalid selection");
+                    pause();
+            }
+        } while (userSelection != 9);
+    }
+
+    private void printServiceMenu() {
+        System.out.println("   1. Add tray");
+        System.out.println("   2. Remove tray");
+        System.out.println("   3. Add product to tray");
+        System.out.println("   4. Remove product from tray");
+        System.out.println("   5. Change price");
+        System.out.println("   9. Exit service menu");
     }
 
     private int getUserInput() {

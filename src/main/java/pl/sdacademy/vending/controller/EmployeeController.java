@@ -15,28 +15,29 @@ public class EmployeeController {
 
     public void addTray() {
 
-        System.out.println("New tray symbol: ");
+        System.out.print("New tray symbol: ");
         String providedSymbol = getStringUserInput();
 
-        System.out.println("New tray price price: ");
+        System.out.print("New tray price: ");
         String providedPrice = getStringUserInput();
-        Long convertedPrice = (long) (Double.parseDouble(providedPrice) * 100);
 
-        Tray tray = Tray.builder(providedSymbol)
-                .price(convertedPrice)
-                .build();
-
-        String errorMessage = employeeService.addTray(tray);
-        if (errorMessage != null) {
-            System.out.println(errorMessage);
-        } else {
-            System.out.println("Tray added");
+        try {
+            Long convertedPrice = (long) (Double.parseDouble(providedPrice) * 100);
+            Tray tray = Tray.builder(providedSymbol)
+                    .price(convertedPrice)
+                    .build();
+            String errorMessage = employeeService.addTray(tray);
+            if (errorMessage != null) {
+                System.out.println(errorMessage);
+            } else {
+                System.out.println("\nTray added");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("\nWrong price format");
         }
-
     }
 
     private String getStringUserInput() {
-        System.out.print("Your selection: ");
         return scanner.nextLine();
     }
 }
