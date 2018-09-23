@@ -1,5 +1,6 @@
 package pl.sdacademy.vending.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Test;
 import pl.sdacademy.vending.util.Configuration;
 import pl.sdacademy.vending.util.PropertiesFileConfiguration;
@@ -177,5 +178,35 @@ public class VendingMachineTest {
         assertEquals("B3", removedTray.get().getSymbol());
         Optional<Tray> trayDetails = machine.trayDetailsAtPosition(1, 2);
         assertFalse(trayDetails.isPresent());
+    }
+
+    @Test
+    public void shouldReturnProductNameAfterAddingProductToTray() {
+        // given
+        Tray tray = Tray.builder("A1").build();
+        Product product = new Product("Cola");
+        tray.addProduct(product);
+
+        // when
+        String productName = tray.firstProductName().get();
+
+        // then
+        assertEquals("Cola", productName);
+    }
+
+    @Test
+    public void shouldNotAddToTrayMoreThan10Products() {
+        // given
+        Tray tray = Tray.builder("A1").build();
+        Product product = new Product("Cola");
+        for (int i = 0; i < 10; i++) {
+            tray.addProduct(product);
+        }
+
+        // when
+        boolean eleventhProduct = tray.addProduct(product);
+
+        // then
+        assertFalse(eleventhProduct);
     }
 }

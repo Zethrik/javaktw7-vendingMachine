@@ -142,6 +142,11 @@ public class VendingMachine implements Serializable {
 //        }
     }
 
+    public void addProductsToTray(String symbol, Product product) {
+        Optional<Tray> tray = getTrayForSymbol(symbol);
+        tray.ifPresent(tray1 -> tray1.addProduct(product));
+    }
+
     private int getColNumberForSymbol(String symbol) {
         char colSymbol = symbol.charAt(1);
         return colSymbol - '1';

@@ -42,6 +42,15 @@ public class Tray implements Serializable {
         return Optional.ofNullable(products.poll());
     }
 
+    public boolean addProduct(Product product) {
+        if (products.size() < 10) {
+            products.add(product);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static class Builder {
         private String symbol;
         private Long price;
@@ -54,10 +63,12 @@ public class Tray implements Serializable {
             this.symbol = symbol;
             this.products = new LinkedList();
         }
+
         public Builder price(Long price) {
             this.price = price;
             return this;
         }
+
         public Builder products(Product product) {
             this.products.add(product);
             return this;
