@@ -23,7 +23,7 @@ public class CustomerOperationController {
     public void printMachine() {
         Optional<VendingMachine> optionalMachine = vendingMachineRepository.load();
         if (!optionalMachine.isPresent()) {
-            System.out.println("No machine configured");
+            System.out.println("No machine configured\n");
             return;
         }
         VendingMachine machine = optionalMachine.get();

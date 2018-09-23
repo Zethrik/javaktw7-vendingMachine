@@ -51,8 +51,7 @@ public class Application {
                     pause();
                     break;
                 case 9:
-                    System.out.println("\nBye");
-                    pause();
+                    System.out.println("\nThank you for using our Super Ekstra Automat. Have a nice day!");
                     break;
                 case 0:
                     startServiceMenu();
@@ -82,6 +81,9 @@ public class Application {
                     pause();
                     break;
                 case 2:
+                    employeeController.removeTray();
+                    pause();
+                    break;
                 case 3:
                 case 4:
                 case 5:

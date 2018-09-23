@@ -28,12 +28,27 @@ public class EmployeeController {
                     .build();
             String errorMessage = employeeService.addTray(tray);
             if (errorMessage != null) {
-                System.out.println(errorMessage);
+                System.out.println("\n" + errorMessage);
             } else {
                 System.out.println("\nTray added");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nWrong price format");
+        }
+    }
+
+    public void removeTray() {
+        try {
+            System.out.print("Input tray symbol: ");
+            String providedSymbol = getStringUserInput();
+            String errorMessage = employeeService.removeTray(providedSymbol);
+            if (errorMessage != null) {
+                System.out.println("\n" + errorMessage);
+            } else {
+                System.out.println("\nTray removed");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\nWrong tray symbol format");
         }
     }
 
