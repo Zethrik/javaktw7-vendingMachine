@@ -4,4 +4,5 @@ import pl.sdacademy.vending.model.Tray;
 
 public interface EmployeeService {
     String addTray(Tray tray);
+    String removeTray(String symbol);
 }
