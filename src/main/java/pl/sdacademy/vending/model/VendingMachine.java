@@ -98,7 +98,6 @@ public class VendingMachine implements Serializable {
         }
     }
 
-
     public Optional<Tray> getTrayForSymbol(String symbol) {
         int rowNumber = getRowNomberForSymbol(symbol);
         char colSymbol = symbol.charAt(1);

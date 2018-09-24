@@ -89,6 +89,9 @@ public class Application {
                     pause();
                     break;
                 case 4:
+                    employeeController.removeProducts();
+                    pause();
+                    break;
                 case 5:
                     pause();
                     break;

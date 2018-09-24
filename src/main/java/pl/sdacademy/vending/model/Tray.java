@@ -1,9 +1,8 @@
 package pl.sdacademy.vending.model;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Tray implements Serializable {
 
@@ -51,6 +50,14 @@ public class Tray implements Serializable {
         }
     }
 
+    public List<Product> purge() {
+        List<Product> removedProducts = new ArrayList<>();
+        while (!products.isEmpty()) {
+            removedProducts.add(products.poll());
+        }
+        return removedProducts;
+    }
+
     public static class Builder {
         private String symbol;
         private Long price;
@@ -60,7 +67,7 @@ public class Tray implements Serializable {
             if (symbol == null) {
                 throw new IllegalArgumentException("Tray symbol cannot be null");
             }
-            this.symbol = symbol;
+            this.symbol = symbol.toUpperCase();
             this.products = new LinkedList();
         }
 

@@ -7,6 +7,7 @@ import pl.sdacademy.vending.model.VendingMachine;
 import pl.sdacademy.vending.service.repositories.VendingMachineRepository;
 import pl.sdacademy.vending.util.Configuration;
 
+import java.util.List;
 import java.util.Optional;
 
 public class DefaultEmployeeService implements EmployeeService {
@@ -65,6 +66,26 @@ public class DefaultEmployeeService implements EmployeeService {
             }
             vendingMachineRepository.save(machine);
             return null;
+        } else {
+            return "There is no vending machine";
+        }
+    }
+
+    @Override
+    public String emptyTray(String symbol) {
+        Optional<VendingMachine> loadedMachine = vendingMachineRepository.load();
+
+        if (loadedMachine.isPresent()) {
+            VendingMachine machine = loadedMachine.get();
+            Optional<Tray> obtainedTray = machine.getTrayForSymbol(symbol);
+            if (obtainedTray.isPresent()) {
+                List<Product> removedProducts = obtainedTray.get().purge();
+                vendingMachineRepository.save(machine);
+                System.out.println("\nRemoved " + removedProducts.size() + " products");
+                return null;
+            } else {
+                return "\nNo tray with provided symbol";
+            }
         } else {
             return "There is no vending machine";
         }

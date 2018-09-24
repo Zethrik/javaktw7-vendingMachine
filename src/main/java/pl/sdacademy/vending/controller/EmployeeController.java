@@ -14,12 +14,13 @@ public class EmployeeController {
     }
 
     public void addTray() {
-        String providedPrice = askUserForString("New tray price: ");
+
 
         try {
-            Long convertedPrice = (long) (Double.parseDouble(providedPrice) * 100);
+//            String providedPrice = askUserForString("New tray price: ");
+//            Long convertedPrice = (long) (Double.parseDouble(askUserForString("New tray price: ")) * 100);
             Tray tray = Tray.builder(askUserForString("New tray symbol: "))
-                    .price(convertedPrice)
+                    .price((long) (Double.parseDouble(askUserForString("New tray price: ")) * 100))
                     .build();
             printErrorMessage(employeeService.addTray(tray), "Tray added");
         } catch (NumberFormatException e) {
@@ -47,6 +48,13 @@ public class EmployeeController {
         }
     }
 
+    public void removeProducts() {
+        printErrorMessage(
+                employeeService.emptyTray(
+                        askUserForString(
+                                "Choose tray to be emptied: ")), "Tray was emptied");
+    }
+
     private String askUserForString(String question) {
         System.out.print(question);
         return getStringUserInput();
@@ -62,7 +70,8 @@ public class EmployeeController {
     }
 
     private Integer getIntegerUserInput() {
-        return scanner.nextInt();
+        String value = scanner.nextLine();
+        return Integer.parseInt(value);
     }
 
     private void printErrorMessage(String errorMessage, String confirmationMessage) {
